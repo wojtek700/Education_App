@@ -54,6 +54,8 @@ void main() {
           CacheFailure(message: 'Insufficient storage', statusCode: 500),
         ),
       );
+      verify(() => localDataSource.cacheFirstTimer());
+      verifyNoMoreInteractions(localDataSource);
     });
   });
 }

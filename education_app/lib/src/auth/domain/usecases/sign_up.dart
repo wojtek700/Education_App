@@ -1,34 +1,34 @@
 import 'package:education_app/core/usecases/usecases.dart';
 import 'package:education_app/core/utils/typdefs.dart';
-import 'package:education_app/src/auth/domain/entities/user.dart';
 import 'package:education_app/src/auth/domain/repos/auth_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class SignIn extends UsecaseWithParams<LocalUser, SignInParams> {
-  const SignIn(this._repo);
+class SignUp extends UsecaseWithParams<void, SignUpParams> {
+  const SignUp(this._repo);
 
   final AuthRepo _repo;
 
   @override
-  ResultFuture<LocalUser> call(SignInParams params) => _repo.signIn(
+  ResultFuture<void> call(SignUpParams params) => _repo.signUp(
         email: params.email,
         password: params.password,
+        fullName: params.fullName,
       );
 }
 
-class SignInParams extends Equatable {
-  const SignInParams({
+class SignUpParams extends Equatable {
+  const SignUpParams({
     required this.email,
     required this.password,
+    required this.fullName,
   });
 
-  const SignInParams.empty()
-      : email = '',
-        password = '';
+  const SignUpParams.empty() : this(email: '', password: '', fullName: '');
 
   final String email;
   final String password;
+  final String fullName;
 
   @override
-  List<String> get props => [email, password];
+  List<String> get props => [email, password, fullName];
 }
